@@ -15,9 +15,13 @@ export default function BottomTabMain() {
   return (
     <BottomTab.Navigator
       initialRouteName="All"
+      sceneContainerStyle={{backgroundColor: color.bg}}
       screenOptions={{
         tabBarShowLabel: false,
         headerShown: false,
+        tabBarActiveBackgroundColor: color.bg,
+        tabBarInactiveBackgroundColor: color.bg,
+        tabBarStyle: styles.tabbar,
       }}>
       <BottomTab.Screen
         name="All"
@@ -84,6 +88,15 @@ const createStyles = (theme: Theme) => {
       height: 22,
       width: 22,
       resizeMode: 'contain',
+    },
+    tabbar: {
+      height: 90,
+      paddingHorizontal: 5,
+      paddingTop: 0,
+      backgroundColor: color.bg,
+      position: 'absolute',
+      borderColor: color.text,
+      borderTopWidth: 0.4,
     },
   });
   return {styles, color};

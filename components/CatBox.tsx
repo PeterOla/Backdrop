@@ -7,11 +7,12 @@ import {
   TouchableOpacityProps,
   View,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {existInArray} from '../helpers/util';
 import actionCreators from '../store/actions/combine';
 import {Theme, useThemeAwareObject} from '../theme';
-import {PostProps} from '../utils/storeInterface';
+import {PostProps, StoreProps} from '../utils/storeInterface';
 
 interface RowProps extends TouchableOpacityProps {
   cat: PostProps;
@@ -23,17 +24,26 @@ export const CattBox: React.FC<RowProps> = props => {
   const dispatch = useDispatch();
   const {styles} = useThemeAwareObject(createStyles);
   const {addFav} = bindActionCreators(actionCreators, dispatch);
+  const {feed, favFeed} = useSelector((state: StoreProps) => state.feed);
 
   const {cat, isFav} = props;
+  let checkFav = false;
+  if (favFeed) {
+    checkFav = existInArray(favFeed, cat, 'id');
+  }
+
   return (
     <View style={styles.container}>
       <Image style={styles.icon} source={{uri: cat.image.url}} />
       <Text style={styles.name}>{cat.name}</Text>
-      <TouchableOpacity activeOpacity={0.7} onPress={() => addFav(cat)}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => addFav(cat)}
+        testID="ADD_FAV">
         <Image
           style={styles.fav_icon}
           source={
-            isFav
+            checkFav
               ? require('../assets/images/love_filled.png')
               : require('../assets/images/love_stroke.png')
           }
@@ -62,7 +72,7 @@ const createStyles = (theme: Theme) => {
     icon: {
       height: 45,
       width: 45,
-      resizeMode: "cover",
+      resizeMode: 'cover',
       borderRadius: 10,
     },
     fav_icon: {

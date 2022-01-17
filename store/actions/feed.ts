@@ -19,7 +19,7 @@ export const addFav = (cat: PostProps) => {
   };
 };
 
-function loadCats() {
+export function loadCats() {
   return new Promise<PostProps[]>(async (resolve, reject) => {
     try {
       let response = await axios.get('https://api.thecatapi.com/v1/breeds', {

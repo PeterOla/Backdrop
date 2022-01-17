@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, {useEffect} from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import AppNavigator from './navigation/AppNavigator';
@@ -18,19 +17,17 @@ const App = () => {
 
   const {store, persistor} = reduxStore();
   return (
-    <SafeAreaProvider>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <ThemeProvider
-            initial={isDarkMode ? DEFAULT_DARK_THEME : DEFAULT_LIGHT_THEME}>
-            <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            />
-            <AppNavigator />
-          </ThemeProvider>
-        </PersistGate>
-      </Provider>
-    </SafeAreaProvider>
+    // <SafeAreaProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider
+          initial={isDarkMode ? DEFAULT_DARK_THEME : DEFAULT_LIGHT_THEME}>
+          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+          <AppNavigator />
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
+    // </SafeAreaProvider>
   );
 };
 

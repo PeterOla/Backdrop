@@ -20,26 +20,23 @@ export const Feed: React.FC<any> = props => {
 
   const {styles, color} = useThemeAwareObject(createStyles);
 
-  const keyExtractor = useCallback((item: PostProps) => item.name, []);
-  const renderItem = useCallback(
-    ({item}) => {
-      return (
-        <CattBox key={item.name} cat={item} isFav={favFeed?.includes(item)} />
-      );
-    },
-    [feed, favFeed],
-  );
-
   return (
     <View style={styles.container}>
-      <SafeAreaView>
+      <SafeAreaView style={{}}>
         <Header title={'All Cats'} />
         <FlatList
+          testID="cat-list"
           contentContainerStyle={styles.spacer}
           showsVerticalScrollIndicator={false}
           data={feed}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <CattBox
+              key={item.name}
+              cat={item}
+              isFav={favFeed?.includes(item)}
+            />
+          )}
         />
       </SafeAreaView>
     </View>
@@ -56,7 +53,7 @@ const createStyles = (theme: Theme) => {
       backgroundColor: color.bg,
     },
     spacer: {
-      paddingBottom: 45,
+      paddingBottom: 120,
     },
   });
   return {styles, color};

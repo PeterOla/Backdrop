@@ -30,9 +30,9 @@ export const Fav: React.FC<any> = props => {
       <SafeAreaView>
         <Header title={'Cats I Like'} />
         <FlatList
-          // style={{flex: 1}}
+          testID="fav-list"
+          contentContainerStyle={styles.spacer}
           columnWrapperStyle={styles.list_column}
-          // contentContainerStyle={{flex: 1}}
           showsVerticalScrollIndicator={false}
           data={favFeed}
           numColumns={2}
@@ -55,6 +55,9 @@ const createStyles = (theme: Theme) => {
     },
     list_column: {
       justifyContent: 'space-between',
+    },
+    spacer: {
+      paddingBottom: 120,
     },
   });
   return {styles, color};
