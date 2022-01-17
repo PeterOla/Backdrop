@@ -1,6 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import {Image, StyleSheet, Text} from 'react-native';
+import {Image, Platform, StyleSheet, Text} from 'react-native';
 import {COLORS} from '../constants/config';
 import {Fav} from '../tabs/Fav';
 import {Feed} from '../tabs/Feed';
@@ -90,7 +90,7 @@ const createStyles = (theme: Theme) => {
       resizeMode: 'contain',
     },
     tabbar: {
-      height: 90,
+      height: Platform.OS == "android"?70: 90,
       paddingHorizontal: 5,
       paddingTop: 0,
       backgroundColor: color.bg,
