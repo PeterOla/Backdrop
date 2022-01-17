@@ -7,6 +7,7 @@ import {
   TouchableOpacityProps,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import actionCreators from '../store/actions/combine';
@@ -27,11 +28,15 @@ export const FavBox: React.FC<RowProps> = props => {
   const {cat, isFav} = props;
   return (
     <View style={styles.container} testID="cat_name">
-      <Image style={styles.icon} source={{uri: cat.image.url}} />
+      <FastImage
+        style={styles.icon}
+        resizeMode="cover"
+        source={{uri: cat.image.url}}
+      />
 
       <View style={styles.name_section}>
         <Text style={styles.name}>{cat.name}</Text>
-        <TouchableOpacity  activeOpacity={0.7} onPress={() => addFav(cat)}>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => addFav(cat)}>
           <Image
             style={styles.fav_icon}
             source={require('../assets/images/love_filled.png')}

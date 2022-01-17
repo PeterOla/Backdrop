@@ -7,6 +7,7 @@ import {
   TouchableOpacityProps,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {existInArray} from '../helpers/util';
@@ -34,7 +35,12 @@ export const CattBox: React.FC<RowProps> = props => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.icon} source={{uri: cat.image.url}} />
+      {/* <Image style={styles.icon} source={{uri: cat.image.url}} /> */}
+      <FastImage
+        style={styles.icon}
+        resizeMode="cover"
+        source={{uri: cat.image.url}}
+      />
       <Text style={styles.name}>{cat.name}</Text>
       <TouchableOpacity
         activeOpacity={0.7}
